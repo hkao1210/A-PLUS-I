@@ -1,16 +1,52 @@
-import Link from "next/link";
+'use client';  // This is necessary for using hooks in Next.js 13 pages
+
+import { useState } from 'react'
 
 export default function Home() {
+  const [file, setFile] = useState<File | null>(null)
+  const [message, setMessage] = useState('')
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0])
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!file) {
+      setMessage('Please select a file')
+      return
+    }
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      const response = await fetch('http://localhost:8000/upload-pdf/', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+      setMessage(data.message)
+    } catch (error) {
+      console.error('Error:', error)
+      setMessage('An error occurred while uploading the file')
+    }
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <Link href="/api/python">
-            <code className="font-mono font-bold">api/index.py</code>
-          </Link>
-        </p>      
-      </div>
-    </main>
-  );
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">PDF Upload</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="file" className="block mb-2">Select PDF:</label>
+          <input type="file" id="file" accept=".pdf" onChange={handleFileChange} className="border p-2" />
+        </div>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Upload</button>
+      </form>
+      {message && <p className="mt-4">{message}</p>}
+    </div>
+  )
 }
