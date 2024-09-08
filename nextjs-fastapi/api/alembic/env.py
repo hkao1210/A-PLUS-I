@@ -19,9 +19,8 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-api_path = Path(__file__).parents[1]
-sys.path.append(str(api_path))
-from models import PDF, Base
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from models import Base
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
