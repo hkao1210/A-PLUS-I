@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Link from 'next/link';
 
 interface Class {
   id: number;
@@ -21,6 +22,7 @@ interface Activity {
   id: number;
   action: string;
   class: string;
+  classId: number;
   date: string;
 }
 
@@ -38,9 +40,9 @@ const ProfessorDashboard = () => {
   ];
 
   const recentActivity: Activity[] = [
-    { id: 1, action: 'Test Uploaded', class: 'CS101', date: '2024-09-07' },
-    { id: 2, action: 'Grading Completed', class: 'CS201', date: '2024-09-06' },
-    { id: 3, action: 'New Class Added', class: 'CS301', date: '2024-09-05' },
+    { id: 1, action: 'Test Uploaded', class: 'CS101', classId: 1, date: '2024-09-07' },
+    { id: 2, action: 'Grading Completed', class: 'CS201', classId: 2, date: '2024-09-06' },
+    { id: 3, action: 'New Class Added', class: 'CS301', classId: 3, date: '2024-09-05' },
   ];
 
   const notifications: Notification[] = [
@@ -85,7 +87,9 @@ const ProfessorDashboard = () => {
                     <TableCell>{cls.code}</TableCell>
                     <TableCell>{cls.students}</TableCell>
                     <TableCell>
-                      <Button variant="link">View</Button>
+                      <Link href={`/class-management/${cls.id}`} passHref>
+                        <Button variant="link">View</Button>
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -104,7 +108,12 @@ const ProfessorDashboard = () => {
             <ul className="space-y-4">
               {recentActivity.map((activity) => (
                 <li key={activity.id} className="flex justify-between items-center">
-                  <span>{activity.action} - {activity.class}</span>
+                  <span>
+                    {activity.action} - {' '}
+                    <Link href={`/class-management/${activity.classId}`} className="text-blue-600 hover:underline">
+                      {activity.class}
+                    </Link>
+                  </span>
                   <span className="text-sm text-gray-500">{activity.date}</span>
                 </li>
               ))}
@@ -134,4 +143,5 @@ const ProfessorDashboard = () => {
     </div>
   );
 }
+
 export default ProfessorDashboard;

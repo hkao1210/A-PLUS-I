@@ -64,25 +64,26 @@ const HomePage = () => {
       </div>
     </section>
 
-{/* Features Section */}
-<section className="bg-white py-16">
-  <div className="container mx-auto px-4">
-    <h2 className="text-3xl font-bold mb-8 text-center text-gray-900">Key Features</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {features.map((feature, index) => (
-        <div key={index} className="flex items-start">
-          <div className="w-8 flex-shrink-0 mr-4">
-            <CheckCircle className="text-red-500 w-full h-auto" />
-          </div>
-          <div className="flex-grow">
-            <h3 className="text-xl font-semibold mb-2 text-gray-800">{feature.title}</h3>
-            <p className="text-gray-600">{feature.description}</p>
+    {/* Features Section */}
+    <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-8 text-center text-gray-900">Key Features</h2>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:justify-items-center">
+            {features.map((feature, index) => (
+              <div key={index} className="flex items-start">
+                <div className="w-8 mr-4 mt-1 flex-shrink-0">
+                  <CheckCircle className="text-red-500 w-full h-auto" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-800">{feature.title}</h3>
+                  <p className="text-gray-600">{feature.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
+
 
     {/* Testimonials Section */}
     <section className="py-16 bg-gray-100">
