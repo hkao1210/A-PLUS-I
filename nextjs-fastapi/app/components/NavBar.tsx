@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Home, User } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import SignIn from '@/components/signin';
 
 const NavBar = () => {
   return (
@@ -27,9 +28,7 @@ const NavBar = () => {
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            <Button variant="outline" size="sm">
-              Log out
-            </Button>
+            <SignIn />
           </div>
         </div>
       </div>

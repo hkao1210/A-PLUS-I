@@ -3,6 +3,10 @@ const nextConfig = {
   rewrites: async () => {
     return [
       {
+        source: '/api/auth/:path*', // Exclude the auth routes from being rewritten
+        destination: '/api/auth/:path*', // Keep them within the Next.js app
+      },
+      {
         source: "/api/:path*",
         destination:
           process.env.NODE_ENV === "development"
