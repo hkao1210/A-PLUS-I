@@ -100,3 +100,10 @@ class Answer(Base):
 
     test_result = relationship("TestResult", back_populates="answers")
     question = relationship("Question")
+class PDF(Base):
+    __tablename__ = "pdfs"
+
+    id = Column(String, primary_key=True)
+    filename = Column(String)
+    file_path = Column(String)  # Path to the stored file
+    upload_date = Column(DateTime(timezone=True), server_default=func.now())

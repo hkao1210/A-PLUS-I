@@ -25,6 +25,12 @@ const NavBar = () => {
                   Professor Dashboard
                 </Button>
               </Link>
+              <Link href="/demo" className="inline-flex items-center px-1 pt-1 text-sm font-medium">
+                <Button variant="ghost">
+                  <User className="mr-2 h-4 w-4" />
+                   A+I Demo
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
